@@ -194,6 +194,23 @@ var z = new SortedSet();
         }
       },
 
+      expire: {
+        bulk: true,
+        callback: function() {
+          debug("received EXPIRE command");
+          var key = cmd.args[1];
+          var value = cmd.args[2] || EMPTY_VALUE;
+          if(store.has(key)){
+          store.expire(key, value); 
+          console.log(1); 
+          }
+          else
+          console.log(0);
+          
+          //console.log("done");
+        }
+      },
+
 
 
       randomkey: {
@@ -215,9 +232,40 @@ var z = new SortedSet();
           var member = cmd.args[3];
           var result = z.add(member,score);
           if(result === false) {
-            console.log("s1",E_VALUE);
+           // console.log("s1",E_VALUE);
           } else {
-            console.log("s2",(!!result));
+            //console.log("s2",(!!result));
+          }
+        }
+      },
+
+      zrange: {
+        bulk: true,
+        callback: function() {
+          //var key = cmd.args[1];
+          var r1 = cmd.args[1];
+          var r2 = cmd.args[2];
+          var result = z.range(r1,r2);
+          if(result === false) {
+           // console.log("s1",E_VALUE);
+          } else {
+           // console.log("s2",(!!result));
+          }
+        }
+      },
+
+      zrank: {
+        bulk: true,
+        callback: function() {
+          
+          
+          var key = cmd.args[1];
+          //console.log("main",key);
+          var result = z.rank(key);
+          if(result === false) {
+            //console.log("s1",E_VALUE);
+          } else {
+            //console.log("s2",(!!result));
           }
         }
       },
@@ -297,13 +345,46 @@ var z = new SortedSet();
     }
   }
 
-cmd = Command("SET a 3 \n");
- cmd.setData("SET a 3");
-cmd.exec();
+z.load();
+var standard_input = process.stdin;
+
+// Set input character encoding.
+standard_input.setEncoding('utf-8');
+
+// Prompt user to input data in console.
+console.log("Please input text in command line.");
+
+// When user input data and click enter key.
+standard_input.on('data', function (data) {
+
+    // User input exit.
+    if(data === 'exit\n'){
+        // Program exit.
+        cmd = Command("save \n");
+
+        cmd.exec();
+        z.save();
+        process.exit();
+    }
+    else if(data === '\n'){
+        // Program exit.
+       console.log("please enter command");
+    }else
+    {
+        // Print user input in console.
+        cmd = Command(data);
+ //cmd.setData("SET a 3");
+        cmd.exec();
+    }
+});
+
+
+
+
 //cmd = Command("SET b 6 \n");
 // cmd.setData("SET a 3");
  //cmd.exec();
- cmd = Command("dbsize \n");
+ /*cmd = Command("dbsize \n");
 
  cmd.exec();
 
@@ -330,7 +411,7 @@ cmd.exec();
 
 console.log(z.range(0, 4));
 
-console.log(z.rank("four"));
+console.log(z.rank("four"));*/
 
 
 

@@ -2,6 +2,10 @@
   "name": "redis-clone-master",
   "version": "1.0.0",
   "main": "ds.js",
+  "dependencies": {
+    "redis-sorted-set": "^2.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

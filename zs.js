@@ -3,6 +3,12 @@ var slice = Array.prototype.slice;
 
 // Helper methods & classes
 
+
+var fs = require("fs");
+
+
+
+
 var P = 1 / Math.E;
 
 function randomLevel() {
@@ -51,6 +57,27 @@ var Z = function (options) {
 
 // Public methods
 
+Z.prototype.load=function(){
+var path="datads.jrdb";
+try {
+  const data = fs.readFileSync(path, 'utf8')
+  this._map=JSON.parse(data);
+  this.length=this._map.length;
+  //console.log("data",this._map);
+} catch (err) {
+  
+}
+};
+
+
+
+Z.prototype.save=function(){
+  var filename = "datads.jrdb";
+  var data = JSON.stringify(this._map);
+  fs.writeFileSync(filename, data);
+//console.log(this._map);
+};
+
 Z.prototype.add = function (key, value) {
   var current;
 
@@ -79,6 +106,7 @@ Z.prototype.add = function (key, value) {
   }
 
   this._map[key] = value;
+  console.log(current);
   return current === undefined ? null : current;
 };
 
@@ -157,7 +185,8 @@ Z.prototype.range = function (start, stop, options) {
   //
   // Return:
   //   an array
-
+  console.log(start);
+  console.log(stop);
   if (this.length === 0) {
     return [];
   }
@@ -212,7 +241,7 @@ Z.prototype.range = function (start, stop, options) {
       i += 1;
     }
   }
-
+  console.log(result);
   return result;
 };
 
@@ -228,9 +257,10 @@ Z.prototype.rank = function (key) {
   //     if member exists
   ///  null
   //     if member does not exist
-
+  console.log(key);
+  console.log("rrrank",this._map);
   var value = this._map[key];
-
+  console.log(value);
   if (value === undefined) {
     return null;
   }
@@ -435,7 +465,9 @@ Z.prototype._insert = function (key, value) {
   }
 
   this.length += 1;
+  console.log("done");
   return node;
+
 };
 
 
