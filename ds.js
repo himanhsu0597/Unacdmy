@@ -25,6 +25,20 @@ try {
 }
 
 
+exports.del = function(key) {
+  var deleted = 0;
+  if(is_array(key)) {
+    key.forEach(function(k) {
+      if(exports.has(k)) {
+        deleted++;
+      }
+      delete stores[current][k];
+    });
+  } else {
+    delete stores[current][key];
+  }
+  return deleted;
+};
 
 
 
@@ -63,6 +77,7 @@ exports.expire = function(key,value,dbindex) {
   console.log(stores);
   console.log("inside expire",value);
   storesttl[key] = value;
+  
 };
 
 

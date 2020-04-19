@@ -202,6 +202,7 @@ var z = new SortedSet();
           var value = cmd.args[2] || EMPTY_VALUE;
           if(store.has(key)){
           store.expire(key, value); 
+          setTimeout(function(){ store.del(key); }, value*1000);
           console.log(1); 
           }
           else
