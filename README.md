@@ -71,7 +71,7 @@ Data Structure : Sorted Set (internally Hashmap + Skiplist)
 > Following this could be done to make it more efficient
   1) Making a Socket Connection
   2) Making the operations more persistent
-  3} Implementing some Design Patterns and clean code.
+  3) Implementing some Design Patterns and clean code.
   
 > All the data structures used has been described in each operation above.Summarizing here
   1) Hashmap ,because we can set and get data in O(1) time 
