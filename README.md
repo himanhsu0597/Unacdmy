@@ -66,5 +66,15 @@ Data Structure : Sorted Set (internally Hashmap + Skiplist)
 
 #                                                 REPORT
 
-# 1. Why did you choose that language ?
+> I chose Node JS because it helps in building a scalable and efficient Network Application.I was thinking about implementing socket connection but being short of time i couldn't get it done.Implementing Socket is easy and efficient in NODEJS.
 
+> Following this could be done to make it more efficient
+  > Making a Socket Connection
+  > Making the operations more persistent
+  > Implementing some Design Patterns and clean code.
+  
+> All the data structures used has been described in each operation above.Summarizing here
+  > Hashmap ,because we can set and get data in O(1) time 
+  > Sorted Set( Hashmap + Skiplist) as skiplist will help me in finding the rank in log(N) time.
+ 
+> Yes, my operation support multithreading operation as whenever our server starts the whole data from  corresponding ".jrdb" files get loaded in our hasmap and sorted set and when we exit we again save this data back to files regardless of how many processes are using SET operation.
